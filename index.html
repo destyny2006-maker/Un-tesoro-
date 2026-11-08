@@ -1,0 +1,461 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Un tesoro para ti ❤️</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Poppins:wght@300;400;500&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background:
+      radial-gradient(circle at top, #48202d, #160d15 65%);
+    color: #f9e9cf;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.container {
+    width: 100%;
+    max-width: 470px;
+    text-align: center;
+    padding: 30px 22px;
+    border: 1px solid #b58b52;
+    border-radius: 20px;
+    background: rgba(20, 10, 17, 0.92);
+    box-shadow: 0 0 35px #0008, 0 0 25px #bd8b4930;
+    animation: aparecer 1s ease;
+}
+
+@keyframes aparecer {
+    from {opacity: 0; transform: translateY(20px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+
+h1, h2 {
+    font-family: 'Cinzel', serif;
+    color: #e7bd78;
+}
+
+h1 {
+    font-size: 27px;
+}
+
+h2 {
+    font-size: 21px;
+}
+
+.subtitle {
+    color: #d6bdac;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.treasure {
+    font-size: 75px;
+    margin: 15px 0;
+    animation: flotar 3s infinite ease-in-out;
+}
+
+@keyframes flotar {
+    0%, 100% {transform: translateY(0);}
+    50% {transform: translateY(-10px);}
+}
+
+button {
+    border: 1px solid #e7bd78;
+    border-radius: 30px;
+    padding: 13px 22px;
+    margin: 8px 4px;
+    background: linear-gradient(135deg, #d5a65d, #91632d);
+    color: #21120d;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+button:active {
+    transform: scale(.96);
+}
+
+.secondary {
+    background: transparent;
+    color: #e7bd78;
+}
+
+input {
+    width: 100%;
+    padding: 14px;
+    margin: 15px 0;
+    border-radius: 12px;
+    border: 1px solid #b58b52;
+    background: #24151e;
+    color: white;
+    outline: none;
+    font-size: 16px;
+    text-align: center;
+}
+
+#game, #final, #hintBox {
+    display: none;
+}
+
+.riddle {
+    font-size: 16px;
+    line-height: 1.8;
+    padding: 18px;
+    background: #ffffff09;
+    border-radius: 14px;
+    border: 1px solid #ffffff15;
+    margin: 20px 0;
+}
+
+.progress {
+    height: 6px;
+    background: #49313a;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 20px 0;
+}
+
+#bar {
+    height: 100%;
+    width: 0%;
+    background: #d8aa65;
+    transition: width .5s;
+}
+
+.message {
+    color: #e7bd78;
+    font-size: 14px;
+    line-height: 1.7;
+    margin-top: 15px;
+}
+
+#feedback {
+    min-height: 24px;
+    font-size: 14px;
+    color: #e6b1a7;
+}
+
+#hintBox {
+    background: #d2a65a16;
+    border: 1px solid #a77c45;
+    padding: 12px;
+    border-radius: 12px;
+    margin: 12px 0;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.small {
+    color: #bda9a2;
+    font-size: 12px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- PANTALLA INICIAL -->
+    <section id="start">
+        <div class="treasure">🔐</div>
+        <h1>Un tesoro para ti</h1>
+
+        <p class="subtitle">
+            Hay algo especial esperando por ti...
+            pero antes tendrás que recorrer un pequeño camino,
+            resolver algunos misterios y descubrir lo que se esconde al final.
+        </p>
+
+        <p class="message">
+            ¿Estás preparada para comenzar esta aventura?
+        </p>
+
+        <button onclick="startGame()">Comenzar aventura ✨</button>
+    </section>
+
+
+    <!-- JUEGO -->
+    <section id="game">
+
+        <p class="small" id="level">MISTERIO 1 DE 5</p>
+
+        <div class="progress">
+            <div id="bar"></div>
+        </div>
+
+        <h2 id="title">El primer misterio</h2>
+
+        <div class="riddle" id="question"></div>
+
+        <input
+          type="text"
+          id="answer"
+          placeholder="Escribe tu respuesta..."
+          autocomplete="off"
+        >
+
+        <button onclick="checkAnswer()">Comprobar respuesta</button>
+
+        <div id="feedback"></div>
+
+        <div id="hintBox"></div>
+
+        <p class="small" id="attempts"></p>
+
+        <div id="reward" class="message"></div>
+
+        <button id="next" style="display:none" onclick="nextLevel()">
+            Continuar ➜
+        </button>
+
+    </section>
+
+
+    <!-- TESORO FINAL -->
+    <section id="final">
+
+        <div class="treasure">💝</div>
+
+        <h1>¡Encontraste el tesoro!</h1>
+
+        <p class="subtitle">
+            Has superado cada misterio y llegado hasta el final.
+            Pero el verdadero tesoro no estaba escondido en un cofre...
+        </p>
+
+        <div class="riddle">
+            <h2>Mi tesoro eres tú ❤️</h2>
+
+            Gracias por existir y por hacer que incluso
+            los pequeños momentos tengan algo especial.
+
+            <br><br>
+
+            Si tuviera que esconder un tesoro en algún lugar,
+            elegiría tu corazón, porque es ahí donde quisiera
+            quedarme.
+
+            <br><br>
+
+            Con mucho cariño, para ti. ❤️
+        </div>
+
+        <p class="message">
+            Fin de la aventura... pero no de las sorpresas.
+        </p>
+
+    </section>
+
+</div>
+
+
+<script>
+
+const levels = [
+
+{
+    title: "El objeto misterioso",
+    question:
+    "Tengo muchas teclas, pero no abro ninguna puerta. Puedo tener muchas notas, pero no soy un cuaderno. ¿Qué soy?",
+    answers: ["piano"],
+    hint1: "Soy un instrumento musical.",
+    hint2: "Mis teclas son blancas y negras.",
+    reward: "✨ Primer secreto desbloqueado: incluso los caminos más largos comienzan con un pequeño paso."
+},
+
+{
+    title: "El misterio del espacio",
+    question:
+    "Cuanto más me quitas, más grande me vuelvo. ¿Qué soy?",
+    answers: ["agujero", "hoyo"],
+    hint1: "Puedo aparecer en la tierra.",
+    hint2: "Si quitas tierra, puedo hacerme más grande.",
+    reward: "✨ Segundo secreto: algunas cosas bonitas se descubren cuando tenemos paciencia."
+},
+
+{
+    title: "El viajero silencioso",
+    question:
+    "Tengo ciudades, pero no casas; tengo montañas, pero no árboles; tengo mares, pero no agua. ¿Qué soy?",
+    answers: ["mapa"],
+    hint1: "Puedo ayudarte a encontrar lugares.",
+    hint2: "Me puedes consultar para saber dónde estás.",
+    reward: "✨ Tercer secreto: hay destinos que se vuelven especiales por las personas que encontramos en el camino."
+},
+
+{
+    title: "El enigma del río",
+    question:
+    "Corro sin tener piernas, tengo una boca pero no puedo hablar. ¿Qué soy?",
+    answers: ["rio"],
+    hint1: "Estoy relacionado con el agua.",
+    hint2: "Desemboco en otro río, un lago o el mar.",
+    reward: "✨ Cuarto secreto: los mejores momentos no siempre se planean, a veces simplemente suceden."
+},
+
+{
+    title: "La última adivinanza",
+    question:
+    "Cuanto más trabajo hago, más mojada termino. ¿Qué soy?",
+    answers: ["toalla"],
+    hint1: "Me encuentras normalmente en el baño.",
+    hint2: "Después de ducharte, puedes utilizarme.",
+    reward: "✨ Último secreto: llegaste hasta aquí y ahora estás a un paso de encontrar tu sorpresa."
+}
+
+];
+
+let current = 0;
+let errors = 0;
+let completed = false;
+
+function startGame() {
+    document.getElementById("start").style.display = "none";
+    document.getElementById("game").style.display = "block";
+    showLevel();
+}
+
+function normalize(text) {
+    return text
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .trim();
+}
+
+function showLevel() {
+
+    errors = 0;
+    completed = false;
+
+    const level = levels[current];
+
+    document.getElementById("level").textContent =
+        "MISTERIO " + (current + 1) + " DE 5";
+
+    document.getElementById("title").textContent = level.title;
+    document.getElementById("question").textContent = level.question;
+
+    document.getElementById("bar").style.width =
+        (current / levels.length * 100) + "%";
+
+    document.getElementById("answer").value = "";
+    document.getElementById("answer").disabled = false;
+
+    document.getElementById("feedback").textContent = "";
+    document.getElementById("attempts").textContent = "";
+    document.getElementById("hintBox").style.display = "none";
+    document.getElementById("hintBox").textContent = "";
+    document.getElementById("reward").textContent = "";
+
+    document.getElementById("next").style.display = "none";
+}
+
+function checkAnswer() {
+
+    if (completed) return;
+
+    const answer = normalize(
+        document.getElementById("answer").value
+    );
+
+    const level = levels[current];
+
+    if (!answer) {
+        document.getElementById("feedback").textContent =
+            "Escribe una respuesta primero. 😊";
+        return;
+    }
+
+    if (level.answers.some(a => normalize(a) === answer)) {
+
+        completed = true;
+
+        document.getElementById("feedback").textContent =
+            "¡Correcto! Has resuelto el misterio. ✨";
+
+        document.getElementById("reward").textContent =
+            level.reward;
+
+        document.getElementById("answer").disabled = true;
+
+        document.getElementById("bar").style.width =
+            ((current + 1) / levels.length * 100) + "%";
+
+        document.getElementById("next").style.display = "inline-block";
+
+        if (current === levels.length - 1) {
+            document.getElementById("next").textContent =
+                "Descubrir el tesoro 💝";
+        }
+
+    } else {
+
+        errors++;
+
+        document.getElementById("feedback").textContent =
+            "No es esa respuesta... ¡Inténtalo otra vez!";
+
+        if (errors === 1) {
+
+            document.getElementById("hintBox").style.display = "block";
+            document.getElementById("hintBox").textContent =
+                "💡 Primera pista: " + level.hint1;
+
+        } else if (errors === 2) {
+
+            document.getElementById("hintBox").style.display = "block";
+            document.getElementById("hintBox").textContent =
+                "🔎 Segunda pista: " + level.hint2;
+
+        } else {
+
+            document.getElementById("attempts").textContent =
+                "No te rindas, puedes volver a intentarlo. ❤️";
+        }
+    }
+}
+
+function nextLevel() {
+
+    current++;
+
+    if (current >= levels.length) {
+
+        document.getElementById("game").style.display = "none";
+        document.getElementById("final").style.display = "block";
+
+    } else {
+
+        showLevel();
+    }
+}
+
+// Permitir responder usando el teclado del celular
+document.getElementById("answer").addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+        checkAnswer();
+    }
+});
+
+</script>
+
+</body>
+  </html>
+  
