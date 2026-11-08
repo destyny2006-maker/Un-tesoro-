@@ -207,7 +207,7 @@ input:focus {
     display: none;
 }
 
-#final {
+#game, #final {
     display: none;
 }
 
@@ -393,14 +393,13 @@ input:focus {
             ¿Te atreves a descubrirlo?
         </p>
 
-        <button onclick="startGame()">
+        <button type="button" onclick="startGame()">
             Comenzar aventura ❤️
         </button>
 
         <p class="small">UNA AVENTURA HECHA CON CARIÑO</p>
 
     </section>
-
 
     <!-- JUEGO -->
 
@@ -429,7 +428,7 @@ input:focus {
             autocomplete="off"
         >
 
-        <button id="checkButton" onclick="checkAnswer()">
+        <button id="checkButton" type="button" onclick="checkAnswer()">
             Comprobar respuesta
         </button>
 
@@ -439,12 +438,11 @@ input:focus {
 
         <div id="reward"></div>
 
-        <button id="next" onclick="nextLevel()">
+        <button id="next" type="button" onclick="nextLevel()">
             Siguiente misterio ➜
         </button>
 
     </section>
-
 
     <!-- TESORO FINAL -->
 
@@ -471,7 +469,7 @@ input:focus {
             </div>
         </div>
 
-        <button id="openChest" onclick="openTreasure()">
+        <button id="openChest" type="button" onclick="openTreasure()">
             Abrir mi tesoro ❤️
         </button>
 
@@ -530,7 +528,6 @@ input:focus {
     </section>
 
 </div>
-
 
 <script>
 
@@ -740,4 +737,257 @@ function startGame() {
     musica.play().then(() => {
         updateMusicButton();
     }).catch(() => {
-        document.getElemen
+        document.getElementById("musicButton").textContent =
+            "♫ Reproducir música";
+    });
+
+    showLevel();
+}
+
+
+// ======================================
+// CONTROL DE MÚSICA
+// ======================================
+
+function toggleMusic() {
+
+    if (musica.paused) {
+
+        musica.play().then(() => {
+            updateMusicButton();
+        }).catch(() => {
+            document.getElementById("musicButton").textContent =
+                "♫ Reproducir música";
+        });
+
+    } else {
+
+        musica.pause();
+        updateMusicButton();
+    }
+}
+
+function updateMusicButton() {
+
+    document.getElementById("musicButton").textContent =
+        musica.paused ? "♫ Reproducir música" : "♫ Pausar música";
+}
+
+
+// ======================================
+// NORMALIZAR RESPUESTAS
+// ======================================
+
+function normalize(text) {
+
+    return text
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[.,!?¿¡]/g, "")
+        .trim();
+}
+
+
+// ======================================
+// MOSTRAR NIVEL
+// ======================================
+
+function showLevel() {
+
+    errors = 0;
+    completed = false;
+
+    const level = levels[current];
+
+    document.getElementById("level").textContent =
+        "MISTERIO " + (current + 1) + " DE 19";
+
+    document.getElementById("title").textContent = level.title;
+    document.getElementById("question").textContent = level.question;
+
+    document.getElementById("bar").style.width =
+        (current / levels.length * 100) + "%";
+
+    document.getElementById("answer").value = "";
+    document.getElementById("answer").disabled = false;
+
+    document.getElementById("feedback").textContent = "";
+
+    document.getElementById("hintBox").style.display = "none";
+    document.getElementById("hintBox").textContent = "";
+
+    document.getElementById("reward").style.display = "none";
+    document.getElementById("reward").textContent = "";
+
+    document.getElementById("next").style.display = "none";
+
+    document.getElementById("checkButton").style.display = "inline-block";
+}
+
+
+// ======================================
+// COMPROBAR RESPUESTAS
+// ======================================
+
+function checkAnswer() {
+
+    if (completed) return;
+
+    const input = document.getElementById("answer");
+    const answer = normalize(input.value);
+    const level = levels[current];
+
+    if (!answer) {
+
+        document.getElementById("feedback").textContent =
+            "Escribe una respuesta antes de continuar. 💗";
+
+        return;
+    }
+
+    const correct = level.answers.some(
+        item => normalize(item) === answer
+    );
+
+    if (correct) {
+
+        completed = true;
+
+        document.getElementById("feedback").textContent =
+            "¡Lo descubriste! Respuesta correcta. ✨";
+
+        document.getElementById("reward").textContent =
+            level.reward;
+
+        document.getElementById("reward").style.display = "block";
+
+        input.disabled = true;
+
+        document.getElementById("checkButton").style.display = "none";
+
+        document.getElementById("bar").style.width =
+            ((current + 1) / levels.length * 100) + "%";
+
+        document.getElementById("next").style.display = "inline-block";
+
+        if (current === levels.length - 1) {
+
+            document.getElementById("next").textContent =
+                "Abrir el tesoro final 💝";
+        }
+
+    } else {
+
+        errors++;
+
+        document.getElementById("feedback").textContent =
+            "No es esa respuesta... inténtalo de nuevo. ❤️";
+
+        const hintBox = document.getElementById("hintBox");
+
+        hintBox.style.display = "block";
+
+        if (errors === 1) {
+
+            hintBox.textContent =
+                "💡 Primera pista: " + level.hint1;
+
+        } else {
+
+            hintBox.textContent =
+                "🔎 Segunda pista: " + level.hint2;
+        }
+    }
+}
+
+
+// ======================================
+// SIGUIENTE NIVEL
+// ======================================
+
+function nextLevel() {
+
+    current++;
+
+    if (current >= levels.length) {
+
+        document.getElementById("game").style.display = "none";
+        document.getElementById("final").style.display = "block";
+
+        document.getElementById("bar").style.width = "100%";
+
+        document.getElementById("musicButton").style.display = "block";
+
+    } else {
+
+        showLevel();
+
+        document.getElementById("answer").focus();
+    }
+}
+
+
+// ======================================
+// ABRIR COFRE FINAL
+// ======================================
+
+function openTreasure() {
+
+    const chest = document.getElementById("chest");
+    const button = document.getElementById("openChest");
+    const reveal = document.getElementById("treasureReveal");
+
+    button.style.display = "none";
+
+    chest.classList.add("open");
+
+    setTimeout(() => {
+        reveal.classList.add("show");
+    }, 1300);
+}
+
+
+// ======================================
+// RESPONDER CON ENTER
+// ======================================
+
+document.getElementById("answer").addEventListener("keydown", function(event) {
+
+    if (event.key === "Enter") {
+        checkAnswer();
+    }
+
+});
+
+
+// ======================================
+// CORAZONES FLOTANTES
+// ======================================
+
+function createHeart() {
+
+    const heart = document.createElement("div");
+
+    heart.className = "heart";
+    heart.textContent = Math.random() > 0.5 ? "♥" : "♡";
+
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (12 + Math.random() * 18) + "px";
+    heart.style.animationDuration = (7 + Math.random() * 7) + "s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+        heart.remove();
+    }, 15000);
+}
+
+setInterval(createHeart, 1200);
+
+</script>
+
+</body>
+</html>
+
+                                           
