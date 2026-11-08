@@ -6,9 +6,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Un tesoro para ti ❤️</title>
 
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Poppins:wght@300;400;500&display=swap');
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Dancing+Script:wght@500;600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
 
+<style>
 * {
     box-sizing: border-box;
 }
@@ -16,40 +18,43 @@
 body {
     margin: 0;
     min-height: 100vh;
-    background:
-      radial-gradient(circle at top, #48202d, #160d15 65%);
-    color: #f9e9cf;
-    font-family: 'Poppins', sans-serif;
+    padding: 20px 14px;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20px;
+    background: radial-gradient(ellipse at top, #542333 0%, #24111d 45%, #100b12 100%);
+    color: #f9e9d6;
+    font-family: 'Poppins', sans-serif;
+    overflow-x: hidden;
 }
 
 .container {
     width: 100%;
-    max-width: 470px;
-    text-align: center;
+    max-width: 480px;
     padding: 30px 22px;
-    border: 1px solid #b58b52;
-    border-radius: 20px;
-    background: rgba(20, 10, 17, 0.92);
-    box-shadow: 0 0 35px #0008, 0 0 25px #bd8b4930;
-    animation: aparecer 1s ease;
+    text-align: center;
+    border: 1px solid #bd9259;
+    border-radius: 22px;
+    background: rgba(19, 10, 17, .94);
+    box-shadow: 0 0 35px #0009, 0 0 30px #d2a35c20;
+    position: relative;
+    z-index: 2;
+    animation: aparecer .9s ease;
 }
 
 @keyframes aparecer {
-    from {opacity: 0; transform: translateY(20px);}
-    to {opacity: 1; transform: translateY(0);}
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 h1, h2 {
     font-family: 'Cinzel', serif;
-    color: #e7bd78;
+    color: #e8c181;
 }
 
 h1 {
     font-size: 27px;
+    line-height: 1.4;
 }
 
 h2 {
@@ -57,32 +62,47 @@ h2 {
 }
 
 .subtitle {
-    color: #d6bdac;
+    color: #d8c5bb;
     font-size: 14px;
-    line-height: 1.7;
+    line-height: 1.9;
+}
+
+.script {
+    font-family: 'Dancing Script', cursive;
+    color: #edc78e;
+    font-size: 25px;
+    line-height: 1.5;
+}
+
+.ornament {
+    color: #d8ad6e;
+    letter-spacing: 8px;
+    margin: 15px 0;
 }
 
 .treasure {
-    font-size: 75px;
+    font-size: 78px;
     margin: 15px 0;
     animation: flotar 3s infinite ease-in-out;
 }
 
 @keyframes flotar {
-    0%, 100% {transform: translateY(0);}
-    50% {transform: translateY(-10px);}
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-11px); }
 }
 
 button {
-    border: 1px solid #e7bd78;
+    border: 1px solid #e8c181;
     border-radius: 30px;
     padding: 13px 22px;
-    margin: 8px 4px;
-    background: linear-gradient(135deg, #d5a65d, #91632d);
+    margin: 8px 3px;
+    background: linear-gradient(135deg, #e5bd7a, #a87538);
     color: #21120d;
-    font-weight: bold;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
     font-size: 14px;
     cursor: pointer;
+    transition: .25s;
 }
 
 button:active {
@@ -91,34 +111,20 @@ button:active {
 
 .secondary {
     background: transparent;
-    color: #e7bd78;
+    color: #e8c181;
 }
 
-input {
-    width: 100%;
-    padding: 14px;
-    margin: 15px 0;
-    border-radius: 12px;
-    border: 1px solid #b58b52;
-    background: #24151e;
-    color: white;
-    outline: none;
-    font-size: 16px;
-    text-align: center;
-}
-
-#game, #final, #hintBox {
+.music-control {
     display: none;
+    margin: 0 auto 18px;
+    padding: 9px 16px;
+    font-size: 12px;
 }
 
-.riddle {
-    font-size: 16px;
-    line-height: 1.8;
-    padding: 18px;
-    background: #ffffff09;
-    border-radius: 14px;
-    border: 1px solid #ffffff15;
-    margin: 20px 0;
+.small {
+    font-size: 11px;
+    color: #bba9a4;
+    letter-spacing: 2px;
 }
 
 .progress {
@@ -126,139 +132,400 @@ input {
     background: #49313a;
     border-radius: 10px;
     overflow: hidden;
-    margin: 20px 0;
+    margin: 18px 0;
 }
 
 #bar {
     height: 100%;
     width: 0%;
-    background: #d8aa65;
-    transition: width .5s;
+    background: linear-gradient(90deg, #a87538, #f2d29b);
+    transition: width .5s ease;
 }
 
-.message {
-    color: #e7bd78;
-    font-size: 14px;
-    line-height: 1.7;
-    margin-top: 15px;
+.riddle {
+    padding: 20px 16px;
+    margin: 20px 0;
+    background: #ffffff08;
+    border: 1px solid #ffffff18;
+    border-radius: 15px;
+    color: #f5e7d9;
+    font-size: 15px;
+    line-height: 1.9;
+}
+
+input {
+    width: 100%;
+    padding: 15px;
+    border-radius: 12px;
+    border: 1px solid #b58b52;
+    background: #24151e;
+    color: white;
+    outline: none;
+    font-size: 15px;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+}
+
+input:focus {
+    border-color: #edc78e;
+    box-shadow: 0 0 10px #d5a45c30;
 }
 
 #feedback {
-    min-height: 24px;
-    font-size: 14px;
-    color: #e6b1a7;
+    min-height: 28px;
+    margin-top: 12px;
+    color: #edb5aa;
+    font-size: 13px;
 }
 
 #hintBox {
-    background: #d2a65a16;
-    border: 1px solid #a77c45;
-    padding: 12px;
-    border-radius: 12px;
+    display: none;
+    padding: 13px;
     margin: 12px 0;
+    background: #d2a65a13;
+    border: 1px solid #a77c45;
+    border-radius: 12px;
+    color: #e9ca98;
     font-size: 13px;
-    line-height: 1.6;
+    line-height: 1.8;
 }
 
-.small {
-    color: #bda9a2;
-    font-size: 12px;
+#reward {
+    display: none;
+    margin: 20px 0;
+    padding: 16px;
+    background: #a8753815;
+    border-radius: 13px;
+    border: 1px solid #bd925944;
+    color: #edc78e;
+    font-family: 'Dancing Script', cursive;
+    font-size: 23px;
+    line-height: 1.5;
 }
 
+#next {
+    display: none;
+}
+
+#final {
+    display: none;
+}
+
+/* COFRE FINAL */
+
+.chest-scene {
+    margin: 35px auto;
+    width: 190px;
+    height: 155px;
+    position: relative;
+    perspective: 600px;
+}
+
+.chest-base {
+    position: absolute;
+    width: 150px;
+    height: 95px;
+    bottom: 0;
+    left: 20px;
+    background: linear-gradient(135deg, #c18a43, #70401e);
+    border: 3px solid #e7bd78;
+    border-radius: 10px 10px 17px 17px;
+    box-shadow: 0 10px 25px #0008;
+    z-index: 2;
+}
+
+.chest-base::before {
+    content: "";
+    position: absolute;
+    left: 62px;
+    top: 0;
+    width: 20px;
+    height: 100%;
+    background: #e4bd78;
+    opacity: .8;
+}
+
+.chest-lock {
+    position: absolute;
+    width: 30px;
+    height: 36px;
+    background: #f2d69b;
+    border: 2px solid #875725;
+    border-radius: 7px;
+    left: 57px;
+    top: 27px;
+    z-index: 4;
+}
+
+.chest-lid {
+    position: absolute;
+    width: 150px;
+    height: 55px;
+    left: 20px;
+    top: 10px;
+    background: linear-gradient(135deg, #e2b36c, #875323);
+    border: 3px solid #f1cc8c;
+    border-radius: 65px 65px 8px 8px;
+    transform-origin: bottom center;
+    transition: transform 1.2s ease;
+    z-index: 3;
+}
+
+.chest-lid::after {
+    content: "";
+    position: absolute;
+    left: 62px;
+    top: 0;
+    height: 100%;
+    width: 20px;
+    background: #f2d69b;
+}
+
+.chest-scene.open .chest-lid {
+    transform: rotateX(125deg) translateY(-12px);
+}
+
+.chest-glow {
+    position: absolute;
+    width: 180px;
+    height: 140px;
+    left: 5px;
+    top: -5px;
+    background: #ffcf68;
+    filter: blur(45px);
+    opacity: 0;
+    transition: opacity 1.5s;
+    z-index: 1;
+}
+
+.chest-scene.open .chest-glow {
+    opacity: .8;
+}
+
+.treasure-reveal {
+    opacity: 0;
+    transform: translateY(25px);
+    transition: opacity 1.5s ease, transform 1.5s ease;
+}
+
+.treasure-reveal.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.final-letter {
+    border: 1px solid #bd925966;
+    border-radius: 15px;
+    padding: 20px 15px;
+    background: #ffffff09;
+    line-height: 2;
+    color: #f3dfc9;
+    font-size: 14px;
+}
+
+/* CORAZONES FLOTANTES */
+
+.heart {
+    position: fixed;
+    bottom: -30px;
+    color: #d8a46c;
+    opacity: .25;
+    animation: subir linear infinite;
+    pointer-events: none;
+    z-index: 1;
+}
+
+@keyframes subir {
+    to {
+        transform: translateY(-110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+@media (max-width: 380px) {
+    .container { padding: 25px 16px; }
+    h1 { font-size: 23px; }
+    .riddle { font-size: 14px; }
+}
 </style>
 </head>
 
 <body>
 
+<audio id="musica" loop preload="auto">
+    <source src="Axel%20-%20Te%20Voy%20A%20Amar(MP3_160K).mp3" type="audio/mpeg">
+</audio>
+
 <div class="container">
 
+    <button id="musicButton" class="music-control secondary" onclick="toggleMusic()">
+        ♫ Pausar música
+    </button>
+
     <!-- PANTALLA INICIAL -->
+
     <section id="start">
+
+        <div class="ornament">✦ ♥ ✦</div>
+
         <div class="treasure">🔐</div>
+
         <h1>Un tesoro para ti</h1>
 
+        <p class="script">
+            Diecinueve años, diecinueve misterios...
+        </p>
+
         <p class="subtitle">
-            Hay algo especial esperando por ti...
-            pero antes tendrás que recorrer un pequeño camino,
-            resolver algunos misterios y descubrir lo que se esconde al final.
+            Existe un pequeño tesoro esperando por ti.
+            Pero para encontrarlo tendrás que resolver
+            19 misterios escondidos en el camino.
         </p>
 
-        <p class="message">
-            ¿Estás preparada para comenzar esta aventura?
+        <p class="subtitle">
+            Cada respuesta te acercará un poquito más
+            a una sorpresa preparada especialmente para ti.
         </p>
 
-        <button onclick="startGame()">Comenzar aventura ✨</button>
+        <div class="ornament">♡ ✦ ♡</div>
+
+        <p class="script">
+            ¿Te atreves a descubrirlo?
+        </p>
+
+        <button onclick="startGame()">
+            Comenzar aventura ❤️
+        </button>
+
+        <p class="small">UNA AVENTURA HECHA CON CARIÑO</p>
+
     </section>
 
 
     <!-- JUEGO -->
+
     <section id="game">
 
-        <p class="small" id="level">MISTERIO 1 DE 5</p>
+        <div class="ornament">✦ ♡ ✦</div>
+
+        <p class="small" id="level">MISTERIO 1 DE 19</p>
 
         <div class="progress">
             <div id="bar"></div>
         </div>
 
-        <h2 id="title">El primer misterio</h2>
+        <h2 id="title"></h2>
 
         <div class="riddle" id="question"></div>
 
+        <p class="script">
+            Piensa con calma... no hay prisa. 💗
+        </p>
+
         <input
-          type="text"
-          id="answer"
-          placeholder="Escribe tu respuesta..."
-          autocomplete="off"
+            type="text"
+            id="answer"
+            placeholder="Escribe tu respuesta..."
+            autocomplete="off"
         >
 
-        <button onclick="checkAnswer()">Comprobar respuesta</button>
+        <button id="checkButton" onclick="checkAnswer()">
+            Comprobar respuesta
+        </button>
 
         <div id="feedback"></div>
 
         <div id="hintBox"></div>
 
-        <p class="small" id="attempts"></p>
+        <div id="reward"></div>
 
-        <div id="reward" class="message"></div>
-
-        <button id="next" style="display:none" onclick="nextLevel()">
-            Continuar ➜
+        <button id="next" onclick="nextLevel()">
+            Siguiente misterio ➜
         </button>
 
     </section>
 
 
     <!-- TESORO FINAL -->
+
     <section id="final">
 
-        <div class="treasure">💝</div>
+        <div class="ornament">✦ ♥ ✦</div>
 
-        <h1>¡Encontraste el tesoro!</h1>
+        <h1>Has encontrado el tesoro</h1>
+
+        <p class="script">
+            Después de 19 misterios...
+        </p>
 
         <p class="subtitle">
-            Has superado cada misterio y llegado hasta el final.
-            Pero el verdadero tesoro no estaba escondido en un cofre...
+            Ha llegado el momento de descubrir
+            lo que estaba esperando por ti.
         </p>
 
-        <div class="riddle">
-            <h2>Mi tesoro eres tú ❤️</h2>
-
-            Gracias por existir y por hacer que incluso
-            los pequeños momentos tengan algo especial.
-
-            <br><br>
-
-            Si tuviera que esconder un tesoro en algún lugar,
-            elegiría tu corazón, porque es ahí donde quisiera
-            quedarme.
-
-            <br><br>
-
-            Con mucho cariño, para ti. ❤️
+        <div class="chest-scene" id="chest">
+            <div class="chest-glow"></div>
+            <div class="chest-lid"></div>
+            <div class="chest-base">
+                <div class="chest-lock"></div>
+            </div>
         </div>
 
-        <p class="message">
-            Fin de la aventura... pero no de las sorpresas.
-        </p>
+        <button id="openChest" onclick="openTreasure()">
+            Abrir mi tesoro ❤️
+        </button>
+
+        <div id="treasureReveal" class="treasure-reveal">
+
+            <div class="treasure">💝</div>
+
+            <p class="script">
+                Mi tesoro eres tú
+            </p>
+
+            <div class="final-letter">
+
+                Después de tantos misterios, tantas pistas
+                y tantas respuestas, has llegado hasta aquí.
+
+                <br><br>
+
+                Pero quiero que sepas algo...
+
+                <br><br>
+
+                <span class="script">
+                    El verdadero tesoro no estaba escondido
+                    en un cofre. Para mí, el tesoro es tener
+                    la oportunidad de conocerte, quererte
+                    y compartir momentos contigo.
+                </span>
+
+                <br><br>
+
+                Hoy comienzas un nuevo año de vida y deseo
+                que esté lleno de sonrisas, sueños cumplidos,
+                abrazos sinceros y momentos inolvidables.
+
+                <br><br>
+
+                Si pudiera regalarte algo más que estas
+                pequeñas sorpresas, sería la posibilidad
+                de recordarte cada día lo especial que eres.
+
+                <br><br>
+
+                <span class="script">
+                    Feliz cumpleaños, mi amor. ❤️
+                </span>
+
+            </div>
+
+            <div class="ornament">♡ ✦ ♡</div>
+
+            <p class="small">FIN DE LA AVENTURA</p>
+
+        </div>
 
     </section>
 
@@ -267,195 +534,210 @@ input {
 
 <script>
 
+// ======================================
+// LOS 19 MISTERIOS
+// ======================================
+
 const levels = [
 
 {
-    title: "El objeto misterioso",
-    question:
-    "Tengo muchas teclas, pero no abro ninguna puerta. Puedo tener muchas notas, pero no soy un cuaderno. ¿Qué soy?",
-    answers: ["piano"],
-    hint1: "Soy un instrumento musical.",
-    hint2: "Mis teclas son blancas y negras.",
-    reward: "✨ Primer secreto desbloqueado: incluso los caminos más largos comienzan con un pequeño paso."
+title: "El primer misterio: un refugio",
+question: "No tiene paredes ni techo, pero puede hacerte sentir protegida. No necesita palabras y a veces dice más que mil de ellas. ¿Qué es?",
+answers: ["abrazo", "un abrazo"],
+hint1: "Se da con los brazos.",
+hint2: "Es una de las formas más bonitas de demostrar cariño.",
+reward: "Hay abrazos que duran unos segundos, pero se quedan en el corazón para siempre. ❤️"
 },
 
 {
-    title: "El misterio del espacio",
-    question:
-    "Cuanto más me quitas, más grande me vuelvo. ¿Qué soy?",
-    answers: ["agujero", "hoyo"],
-    hint1: "Puedo aparecer en la tierra.",
-    hint2: "Si quitas tierra, puedo hacerme más grande.",
-    reward: "✨ Segundo secreto: algunas cosas bonitas se descubren cuando tenemos paciencia."
+title: "El segundo misterio: un instante",
+question: "No se puede guardar en una caja, pero puede quedarse en tu memoria. A veces es dulce, breve y puede hacer que dos personas se acerquen. ¿Qué es?",
+answers: ["beso", "un beso"],
+hint1: "Puede darse en la mejilla o en los labios.",
+hint2: "Es una demostración de amor que se da juntando los labios.",
+reward: "Un beso puede ser pequeño en duración, pero enorme en significado. 💋"
 },
 
 {
-    title: "El viajero silencioso",
-    question:
-    "Tengo ciudades, pero no casas; tengo montañas, pero no árboles; tengo mares, pero no agua. ¿Qué soy?",
-    answers: ["mapa"],
-    hint1: "Puedo ayudarte a encontrar lugares.",
-    hint2: "Me puedes consultar para saber dónde estás.",
-    reward: "✨ Tercer secreto: hay destinos que se vuelven especiales por las personas que encontramos en el camino."
+title: "El tercer misterio: sin palabras",
+question: "Puedo decirte que te quiero sin pronunciar una sola palabra. Puedo transmitir ternura, alegría o incluso nervios. ¿Qué soy?",
+answers: ["mirada", "una mirada"],
+hint1: "Se hace principalmente con los ojos.",
+hint2: "A veces dos personas se entienden solamente con los ojos.",
+reward: "Hay miradas que dicen lo que los labios todavía no se atreven a contar. ✨"
 },
 
 {
-    title: "El enigma del río",
-    question:
-    "Corro sin tener piernas, tengo una boca pero no puedo hablar. ¿Qué soy?",
-    answers: ["rio"],
-    hint1: "Estoy relacionado con el agua.",
-    hint2: "Desemboco en otro río, un lago o el mar.",
-    reward: "✨ Cuarto secreto: los mejores momentos no siempre se planean, a veces simplemente suceden."
+title: "El cuarto misterio: contagiosa",
+question: "Aparezco en el rostro cuando algo te hace feliz. Puedo ser provocada por una palabra, un recuerdo o una persona especial. ¿Qué soy?",
+answers: ["sonrisa", "una sonrisa"],
+hint1: "Se nota especialmente en los labios.",
+hint2: "Es lo que aparece cuando alguien te hace reír o sentir feliz.",
+reward: "Ojalá nunca te falten motivos para sonreír, y ojalá yo pueda ser uno de ellos. ❤️"
 },
 
 {
-    title: "La última adivinanza",
-    question:
-    "Cuanto más trabajo hago, más mojada termino. ¿Qué soy?",
-    answers: ["toalla"],
-    hint1: "Me encuentras normalmente en el baño.",
-    hint2: "Después de ducharte, puedes utilizarme.",
-    reward: "✨ Último secreto: llegaste hasta aquí y ahora estás a un paso de encontrar tu sorpresa."
+title: "El quinto misterio: el que siente",
+question: "No puedo hablar, pero parezco tener mi propio idioma. Se acelera cuando alguien especial se acerca y simboliza el amor. ¿Qué soy?",
+answers: ["corazon", "el corazon"],
+hint1: "Está dentro de tu pecho.",
+hint2: "Es el órgano que late y que suele representarse con este símbolo: ♥",
+reward: "Si los sentimientos tuvieran una dirección, muchos encontrarían su camino hasta el corazón. 💗"
+},
+
+{
+title: "El sexto misterio: creer",
+question: "No puedo comprarse ni exigirse. Crezco cuando alguien demuestra que sus palabras y acciones coinciden. ¿Qué soy?",
+answers: ["confianza", "la confianza"],
+hint1: "Es fundamental en cualquier relación.",
+hint2: "Es lo que permite creer en la sinceridad de la otra persona.",
+reward: "Qué bonito es poder ser uno mismo junto a alguien y no tener miedo de mostrar el corazón. 🌹"
+},
+
+{
+title: "El séptimo misterio: valorar",
+question: "No significa pensar igual ni estar siempre de acuerdo. Significa reconocer que la otra persona merece ser escuchada y valorada. ¿Qué soy?",
+answers: ["respeto", "el respeto"],
+hint1: "Es una base importante para una relación sana.",
+hint2: "Consiste en valorar a la otra persona y sus decisiones.",
+reward: "El cariño se vuelve más bonito cuando siempre va acompañado de respeto. ❤️"
+},
+
+{
+title: "El octavo misterio: saber esperar",
+question: "No tengo reloj, pero enseño a esperar. En una relación ayudo a comprender que no todo ocurre cuando uno quiere. ¿Qué soy?",
+answers: ["paciencia", "la paciencia"],
+hint1: "Es necesaria cuando algo tarda en suceder.",
+hint2: "Es la capacidad de esperar sin desesperarse.",
+reward: "Lo bonito también necesita tiempo para crecer, como las flores que esperan su primavera. 🌷"
+},
+
+{
+title: "El noveno misterio: estar presente",
+question: "No siempre necesito hablar ni hacer algo extraordinario. A veces basta con estar cerca para que un día difícil sea más llevadero. ¿Qué soy?",
+answers: ["compania", "la compania"],
+hint1: "Es lo contrario de sentirse solo.",
+hint2: "Es tener a alguien a tu lado.",
+reward: "A veces el mejor regalo no es algo que se entrega, sino alguien que decide quedarse. 💕"
+},
+
+{
+title: "El décimo misterio: volver a sentir",
+question: "No puedo tocarse ni repetirse exactamente, pero basta cerrar los ojos para volver a sentir algo que ocurrió en el pasado. ¿Qué soy?",
+answers: ["recuerdo", "un recuerdo"],
+hint1: "Puede ser de un momento feliz.",
+hint2: "Es algo que guardas en tu memoria.",
+reward: "Hay momentos que terminan, pero se convierten en recuerdos que nunca queremos perder. ✨"
+},
+
+{
+title: "El undécimo misterio: palabras guardadas",
+question: "Puedo llevar palabras que nacen del corazón. Antes viajaba en sobres y ahora también puedo llegar a través de una pantalla. ¿Qué soy?",
+answers: ["carta", "una carta"],
+hint1: "Se puede escribir para alguien especial.",
+hint2: "Es un texto que se entrega o se envía a otra persona.",
+reward: "Las palabras bonitas se olvidan menos cuando nacen de sentimientos sinceros. 💌"
+},
+
+{
+title: "El duodécimo misterio: un detalle",
+question: "No necesito hablar para expresar admiración. Tengo pétalos, puedo tener perfume y muchas veces soy el detalle que acompaña un gesto romántico. ¿Qué soy?",
+answers: ["flor", "una flor", "rosa", "una rosa"],
+hint1: "Puedo crecer en un jardín.",
+hint2: "Una rosa es un ejemplo muy conocido.",
+reward: "Como una flor, espero que siempre tengas motivos para florecer y sentirte querida. 🌹"
+},
+
+{
+title: "El decimotercer misterio: una palabra que vale",
+question: "No soy un contrato, pero puedo unir dos corazones. Mi valor no está en decirme, sino en cumplir lo que prometo. ¿Qué soy?",
+answers: ["promesa", "una promesa"],
+hint1: "Se hace cuando alguien asegura que cumplirá algo.",
+hint2: "Es un compromiso expresado con palabras.",
+reward: "Las palabras más bonitas son aquellas que nuestras acciones se encargan de demostrar. ❤️"
+},
+
+{
+title: "El decimocuarto misterio: lo que regalamos",
+question: "No puedo detenerme ni comprarse de nuevo. Cuando alguien especial me dedica un poco, puede convertirse en el mejor regalo. ¿Qué soy?",
+answers: ["tiempo", "el tiempo"],
+hint1: "Todos tenemos la misma cantidad de horas en un día.",
+hint2: "Es algo que compartimos cuando decidimos estar con alguien.",
+reward: "Compartir tiempo con alguien es regalarle una parte de nuestra vida. 💗"
+},
+
+{
+title: "El decimoquinto misterio: un sentimiento de hogar",
+question: "No siempre soy una casa con puertas y ventanas. A veces soy una persona junto a la que puedes ser tú misma y sentir tranquilidad. ¿Qué soy?",
+answers: ["hogar", "un hogar"],
+hint1: "Es el lugar donde uno se siente seguro.",
+hint2: "No siempre es un sitio físico; también puede ser una sensación.",
+reward: "Qué bonito es encontrar a alguien con quien hasta el silencio se siente como hogar. 🏡"
+},
+
+{
+title: "El decimosexto misterio: entenderse",
+question: "Puedo aparecer entre dos personas que comparten bromas, miradas y secretos. No necesito explicaciones porque muchas veces basta una señal para entendernos. ¿Qué soy?",
+answers: ["complicidad", "la complicidad"],
+hint1: "Es algo que puede existir entre dos personas cercanas.",
+hint2: "Es entenderse y compartir algo especial casi sin palabras.",
+reward: "Me encantan esas pequeñas cosas que solamente dos personas entienden. 💞"
+},
+
+{
+title: "El decimoséptimo misterio: dulzura",
+question: "No soy un objeto ni un regalo. Se nota en la manera de hablar, cuidar y tratar a alguien con delicadeza. ¿Qué soy?",
+answers: ["ternura", "la ternura"],
+hint1: "Es una forma dulce de demostrar cariño.",
+hint2: "Es lo que sentimos ante un gesto cariñoso y delicado.",
+reward: "Nunca pierdas esa dulzura que hace especiales hasta los detalles más pequeños. 🌸"
+},
+
+{
+title: "El decimoctavo misterio: el sentimiento",
+question: "No puedo verse, pero puede sentirse. Inspiro canciones, poemas, detalles y muchas de las historias más bonitas. ¿Qué soy?",
+answers: ["amor", "el amor"],
+hint1: "Es uno de los sentimientos más importantes.",
+hint2: "Es lo que muchas personas sienten cuando quieren profundamente a alguien.",
+reward: "No hacen falta grandes palabras cuando los pequeños detalles también saben decir te quiero. ❤️"
+},
+
+{
+title: "El último misterio: dos caminos",
+question: "No somos una sola persona, pero podemos caminar juntos. Compartimos momentos, aprendemos el uno del otro y elegimos construir algo entre dos. ¿Qué somos?",
+answers: ["pareja", "una pareja", "novios", "una pareja de novios"],
+hint1: "Se refiere a dos personas que tienen una relación sentimental.",
+hint2: "Es una palabra que describe a dos personas enamoradas que están juntas.",
+reward: "Llegaste al último misterio. Y si algo deseo, es que sigamos creando juntos muchos recuerdos bonitos. ❤️"
 }
 
 ];
+
+
+// ======================================
+// VARIABLES
+// ======================================
 
 let current = 0;
 let errors = 0;
 let completed = false;
 
+const musica = document.getElementById("musica");
+
+
+// ======================================
+// INICIAR JUEGO
+// ======================================
+
 function startGame() {
+
     document.getElementById("start").style.display = "none";
     document.getElementById("game").style.display = "block";
-    showLevel();
-}
+    document.getElementById("musicButton").style.display = "block";
 
-function normalize(text) {
-    return text
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .trim();
-}
+    musica.volume = 0.40;
 
-function showLevel() {
-
-    errors = 0;
-    completed = false;
-
-    const level = levels[current];
-
-    document.getElementById("level").textContent =
-        "MISTERIO " + (current + 1) + " DE 5";
-
-    document.getElementById("title").textContent = level.title;
-    document.getElementById("question").textContent = level.question;
-
-    document.getElementById("bar").style.width =
-        (current / levels.length * 100) + "%";
-
-    document.getElementById("answer").value = "";
-    document.getElementById("answer").disabled = false;
-
-    document.getElementById("feedback").textContent = "";
-    document.getElementById("attempts").textContent = "";
-    document.getElementById("hintBox").style.display = "none";
-    document.getElementById("hintBox").textContent = "";
-    document.getElementById("reward").textContent = "";
-
-    document.getElementById("next").style.display = "none";
-}
-
-function checkAnswer() {
-
-    if (completed) return;
-
-    const answer = normalize(
-        document.getElementById("answer").value
-    );
-
-    const level = levels[current];
-
-    if (!answer) {
-        document.getElementById("feedback").textContent =
-            "Escribe una respuesta primero. 😊";
-        return;
-    }
-
-    if (level.answers.some(a => normalize(a) === answer)) {
-
-        completed = true;
-
-        document.getElementById("feedback").textContent =
-            "¡Correcto! Has resuelto el misterio. ✨";
-
-        document.getElementById("reward").textContent =
-            level.reward;
-
-        document.getElementById("answer").disabled = true;
-
-        document.getElementById("bar").style.width =
-            ((current + 1) / levels.length * 100) + "%";
-
-        document.getElementById("next").style.display = "inline-block";
-
-        if (current === levels.length - 1) {
-            document.getElementById("next").textContent =
-                "Descubrir el tesoro 💝";
-        }
-
-    } else {
-
-        errors++;
-
-        document.getElementById("feedback").textContent =
-            "No es esa respuesta... ¡Inténtalo otra vez!";
-
-        if (errors === 1) {
-
-            document.getElementById("hintBox").style.display = "block";
-            document.getElementById("hintBox").textContent =
-                "💡 Primera pista: " + level.hint1;
-
-        } else if (errors === 2) {
-
-            document.getElementById("hintBox").style.display = "block";
-            document.getElementById("hintBox").textContent =
-                "🔎 Segunda pista: " + level.hint2;
-
-        } else {
-
-            document.getElementById("attempts").textContent =
-                "No te rindas, puedes volver a intentarlo. ❤️";
-        }
-    }
-}
-
-function nextLevel() {
-
-    current++;
-
-    if (current >= levels.length) {
-
-        document.getElementById("game").style.display = "none";
-        document.getElementById("final").style.display = "block";
-
-    } else {
-
-        showLevel();
-    }
-}
-
-// Permitir responder usando el teclado del celular
-document.getElementById("answer").addEventListener("keydown", function(event) {
-    if (event.key === "Enter") {
-        checkAnswer();
-    }
-});
-
-</script>
-
-</body>
-  </html>
-  
+    musica.play().then(() => {
+        updateMusicButton();
+    }).catch(() => {
+        document.getElemen
